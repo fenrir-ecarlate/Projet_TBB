@@ -15,10 +15,10 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{colortbl}
+\usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref} % liens
 \usepackage{fancyhdr} % En tetes / bas de page
 \usepackage{helvet} % police helvetica
-\usepackage[hidelinks]{hyperref}
 \usepackage{xcolor} % Style pour affichage du C
 \usepackage{courier} % police pour les listings
 
@@ -63,19 +63,36 @@
 %Ici commence réelement l'écriture du rapport
 
 \section{Introduction}
+L'objectif de ce projet est de comprendre, essayer et exploiter un outil d'optimisation. Dans notre cas, nous avons choisi TBB (Threading Building Blocks). Il s'agit d'une libraire d'Intel fait pour du C++. \\
 
+Sa caractéristique est de simplifier au maximum l'implémentation de programme parallèle pour des systèmes multicœur. Le programmeur pourra ainsi faire un programme portable car c'est la librairie qui va se charger d'utilisé la bonne implémentation de thread (exemple: POSIX pour linux ou les threads Windows). Pour cela, elle met en place différentes fonction et objet lié à la programmation parallèle et à la gestion de concurrence.\\
+
+Pour ce projet, nous avons du faire l'installation de la libraire, la procédure sera expliqué plus loin dans le rapport. Il y aura aussi un code exemple auquel on aura fait des mesures de performances afin de voir les optimisation apporté. Nous finirons par une analyse de notre constats tout au long de nos essaies.
 \newpage
 
 \section{Installation}
+L'installation des libraires a été fait sur des machines possédant un OS Linux Ubuntu.
 
 \newpage
 
 \section{Exemple}
+Le programme utilisé pour l'exemple s'occupe de convertir une image couleur en une avec des nuances de gris. Nous avons choisi le code suivant car il se prête bien à la parallélisation et que nous avons déjà fait des optimisation avec d'autre outils. Cela nous permet ainsi de faire des meilleurs critiques au niveau des performances.
 
+\subsection{Code}
+% inserer le code ici
+
+\subsection{Mesures}
+ 
 \newpage
 
 \section{Analyse}
 
 \newpage
+
+\section{Bibliographie}
+\begin{itemize}
+	\item Tutoriel d'Intel: \url{https://www.threadingbuildingblocks.org/intel-tbb-tutorial}
+	\item Documentation d'Intel: \url{https://software.intel.com/en-us/tbb-documentation}
+\end{itemize}
 
 \end{document}

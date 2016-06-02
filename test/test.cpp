@@ -1,38 +1,25 @@
-//src: http://stackoverflow.com/questions/10607215/simplest-tbb-example
-//Ce code se contente d'afficher les valeur d'un vecteurs
-//Evidement l'ordre d'apparition sera différents à chaque execution
-//car on ne sait pas quel thread aura la main à quel moment
-#include "tbb/parallel_for_each.h"
-#include "tbb/task_scheduler_init.h"
-#include <iostream>
-#include <vector>
+#include <cmath>
+#include "tbb/tbb.h"
 
-struct mytask {
-  mytask(size_t n)
-    :_n(n)
-  {}
-  void operator()() {
-    for (int i=0;i<1000000;++i) {}  // Deliberately run slow
-    std::cerr << "[" << _n << "]";
-  }
-  size_t _n;
-};
+double *output;
+double *input;
 
-template <typename T> struct invoker {
-  void operator()(T& it) const {it();}
-};
 
-int main(int,char**) {
+int main() {
+    const int size = 20000000;
+    output = new double[size];
+    input = new double[size];
+   
+    for(int i = 0; i < size; i++) {
+        input[i] = i;
+    }
+      
+    tbb::parallel_for(0, size, 1, [=](int i) {
 
-  tbb::task_scheduler_init init;  // Automatic number of threads
-  // tbb::task_scheduler_init init(4);  // Explicit number of threads
-
-  std::vector<mytask> tasks;
-  for (int i=0;i<1000;++i)
-    tasks.push_back(mytask(i));
-
-  tbb::parallel_for_each(tasks.begin(),tasks.end(),invoker<mytask>());
-  std::cerr << std::endl;
-
-  return 0;
+        output[i] = sqrt(sin(input[i])*sin(input[i]) + cos(input[i])*cos(input[i]));
+            
+   });
+    delete[] input;
+    delete[] output;
+    return 0;
 }

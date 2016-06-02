@@ -1,0 +1,81 @@
+% Compiler ce document 
+
+% package de base
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+% langues
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage[hidelinks]{hyperref} % liens
+\usepackage{fancyhdr} % En tetes / bas de page
+\usepackage{helvet} % police helvetica
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor} % Style pour affichage du C
+\usepackage{courier} % police pour les listings
+
+\usepackage{listingsutf8}
+
+% Page de Garde -- Necessite d'installer le package titling, si probleme
+% commenter la ligne suivante ainsi que les infos necessaires a la page
+% de garde
+\usepackage{pageGarde/Garde_perso}
+
+\input{utils/myCommands.tex}
+\input{utils/myColors.tex}
+\input{utils/myConfigurations.tex}
+
+% Mise en forme de la page de titre
+\author{João Miguel Domingues Pedrosa \\ Loïc Haas}
+\title{Threading Building Blocks}
+\dest{}
+
+% Informations necessaires a la page de garde
+% Commenter si probleme de compilation
+\acro{HPC}
+\matter{High Performance Coding}
+\date{\today}
+
+%en-tête
+\lhead{Domingues \& Haas}
+\chead{TBB}
+\rhead{\theAcro}
+
+%pied-de-page
+\lfoot{HEIG-VD}
+\cfoot{\today}
+\rfoot{\thepage}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+%Ici commence réelement l'écriture du rapport
+
+\section{Introduction}
+
+\newpage
+
+\section{Installation}
+
+\newpage
+
+\section{Exemple}
+
+\newpage
+
+\section{Analyse}
+
+\newpage
+
+\end{document}

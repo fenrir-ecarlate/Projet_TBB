@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.2.14)  2 JUN 2016 14:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.2.14)  2 JUN 2016 18:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -689,7 +689,7 @@ LaTeX Info: Redefining \nameref on input line 57.
 \openout3 = `rapport.out'.
 
  (./pageGarde/Garde_titlepage.tex
-<pageGarde/logo1.png, id=32, 381.425pt x 118.4425pt>
+<pageGarde/logo1.png, id=44, 381.425pt x 118.4425pt>
 File: pageGarde/logo1.png Graphic file (type png)
  <use pageGarde/logo1.png>
 Package pdftex.def Info: pageGarde/logo1.png used on input line 20.
@@ -704,7 +704,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 22.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<pageGarde/logo2.jpg, id=33, 87.49222pt x 44.67082pt>
+<pageGarde/logo2.jpg, id=45, 87.49222pt x 44.67082pt>
 File: pageGarde/logo2.jpg Graphic file (type jpg)
 
 <use pageGarde/logo2.jpg>
@@ -748,41 +748,76 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--69
 
  []
 
-[2] [3]
+[2]
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 81.
- [4] [5]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 94.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 76.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 78.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 98.
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+
+ []
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
+File: latin1.def 2014/04/30 v1.2b Input encoding file
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/se-utf8.def
+File: se-utf8.def 2011/12/02 v1.10 stringenc: UTF-8
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/se-iso-8859-1.def
+File: se-iso-8859-1.def 2011/12/02 v1.10 stringenc: ISO-8859-1
+)
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <7> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 5.
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 93--95
+\T1/pcr/m/n/10 $ wget https://www.threadingbuildingblocks.org/sites/default/fil
+es/
+ []
+
+<images/installcommands.png, id=120, 1604.99625pt x 705.63625pt>
+File: images/installcommands.png Graphic file (type png)
+
+<use images/installcommands.png>
+Package pdftex.def Info: images/installcommands.png used on input line 109.
+(pdftex.def)             Requested size: 455.24408pt x 200.15015pt.
+ [4 <./images/installcommands.png>] [5]
 [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 98.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 135.
+ [7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 135.
  (./rapport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 98.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 98.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 135.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 135.
 Package rerunfilecheck Info: File `rapport.out' has not changed.
-(rerunfilecheck)             Checksum: 1942CF5B0814BE9281FFD027D340EB71;335.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 98.
+(rerunfilecheck)             Checksum: FBC149AD7D8D375E243DCCE8C04ABED6;555.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 135.
  ) 
 Here is how much of TeX's memory you used:
- 9983 strings out of 493105
- 139847 string characters out of 6137072
- 261603 words of memory out of 5000000
- 13248 multiletter control sequences out of 15000+600000
- 39087 words of font info for 43 fonts, out of 8000000 for 9000
+ 10497 strings out of 493105
+ 145047 string characters out of 6137072
+ 373603 words of memory out of 5000000
+ 13683 multiletter control sequences out of 15000+600000
+ 50567 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 34i,11n,56p,478b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,11n,56p,478b,1569s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-urw/helvetic/uhvr8a.pfb>
-Output written on rapport.pdf (7 pages, 75341 bytes).
+e/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
+rw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/
+uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
+Output written on rapport.pdf (8 pages, 250048 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 80 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 67 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 183 PDF objects out of 1000 (max. 8388607)
+ 162 compressed objects within 2 object streams
+ 65 named destinations out of 1000 (max. 500000)
+ 96 words of extra memory for PDF output out of 10000 (max. 10000000)
 

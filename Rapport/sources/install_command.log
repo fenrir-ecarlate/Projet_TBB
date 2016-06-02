@@ -1,0 +1,39 @@
+redsuser@a12pc01:~/tbb$ wget https://www.threadingbuildingblocks.org/sites/default/files/software_releases/linux/tbb44_20160526oss_lin.tgz
+--2016-06-02 15:25:31--  https://www.threadingbuildingblocks.org/sites/default/files/software_releases/linux/tbb44_20160526oss_lin.tgz
+Resolving www.threadingbuildingblocks.org (www.threadingbuildingblocks.org)... 54.83.27.49
+Connecting to www.threadingbuildingblocks.org (www.threadingbuildingblocks.org)|54.83.27.49|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 16170189 (15M) [application/octet-stream]
+Saving to: ‘tbb44_20160526oss_lin.tgz’
+
+100%[=======================================================================================================================================>] 16'170'189  11.7MB/s   in 1.3s   
+
+2016-06-02 15:25:33 (11.7 MB/s) - ‘tbb44_20160526oss_lin.tgz’ saved [16170189/16170189]
+
+redsuser@a12pc01:~/tbb$ tar zxf tbb44_20160526oss_lin.tgz 
+redsuser@a12pc01:~/tbb$ ls
+tbb44_20160526oss  tbb44_20160526oss_lin.tgz
+redsuser@a12pc01:~/tbb$ cd tbb44_20160526oss/
+redsuser@a12pc01:~/tbb/tbb44_20160526oss$ ls
+bin  CHANGES  COPYING  doc  examples  include  index.html  lib  python  README
+redsuser@a12pc01:~/tbb/tbb44_20160526oss$ cd bin/
+redsuser@a12pc01:~/tbb/tbb44_20160526oss/bin$ ls
+tbbvars.csh  tbbvars.sh
+redsuser@a12pc01:~/tbb/tbb44_20160526oss/bin$ cd ..
+redsuser@a12pc01:~/tbb/tbb44_20160526oss$ pwd
+/home/redsuser/tbb/tbb44_20160526oss
+redsuser@a12pc01:~/tbb/tbb44_20160526oss$ cd bin
+redsuser@a12pc01:~/tbb/tbb44_20160526oss/bin$ nano tbbvars.sh 
+Use "fg" to return to nano.
+
+[1]+  Stopped                 nano tbbvars.sh
+redsuser@a12pc01:~/tbb/tbb44_20160526oss/bin$ nano tbbvars.sh 
+redsuser@a12pc01:~/tbb/tbb44_20160526oss/bin$ . ./tbbvars.sh 
+ERROR: Unknown switch ''. Accepted values: ia32, intel64
+redsuser@a12pc01:~/tbb/tbb44_20160526oss/bin$ . ./tbbvars.sh intel64
+redsuser@a12pc01:~/tbb/tbb44_20160526oss/bin$ cd ~/Documents/
+redsuser@a12pc01:~/Documents$ mkdir test
+redsuser@a12pc01:~/Documents$ cd test/
+redsuser@a12pc01:~/Documents/test$ nano test.cpp
+redsuser@a12pc01:~/Documents/test$ g++ test.cpp -ltbb
+redsuser@a12pc01:~/Documents/test$ ./a.out 

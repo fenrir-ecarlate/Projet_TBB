@@ -1,0 +1,6 @@
+[submodule "lib/benchmark"]
+	path = lib/benchmark
+	url = https://github.com/google/benchmark.git
+[submodule "lib/hayai"]
+	path = lib/hayai
+	url = https://github.com/nickbruun/hayai.git

@@ -15,8 +15,8 @@ public:
     void run() {
         // Thread Local storage for characters counts
         tbb::combinable<std::vector<size_t>> nbChars([](){return std::vector<size_t>(256, 0);});
-        tbb::combinable<std::ifstream> files([this](){
-            return std::ifstream(fileName, std::ios::binary | std::ios::in);
+        tbb::combinable<std::ifstream*> files([this](){
+            return new std::ifstream(fileName, std::ios::binary | std::ios::in);
         });
 
         // Get the file size
@@ -36,13 +36,13 @@ public:
         // Process the counting algo in parallel
         tbb::parallel_for(tbb::blocked_range<size_t>(0, NB_ITERATIONS), 
             [&nbChars, &files, this](const tbb::blocked_range<size_t> &r) {
-                std::ifstream& file = files.local();
-                if (!file.is_open()) {
+                std::ifstream* file = files.local();
+                if (!file || !file->is_open()) {
                     return;
                 }
 
                 // Place the read cursor to the good position
-                file.seekg(r.begin() * BUFFER_SIZE, std::ios::beg);
+                file->seekg(r.begin() * BUFFER_SIZE, std::ios::beg);
                 
                 // Get a ref to the localstorage for this thread
                 std::vector<size_t>& chars = nbChars.local();
@@ -51,7 +51,7 @@ public:
                 uint8_t* buffer = new uint8_t[BUFFER_SIZE];
 
                 for (size_t i = r.begin(); i != r.end(); ++i) {
-                    std::streamsize readed = file.readsome((char*)buffer, BUFFER_SIZE);
+                    std::streamsize readed = file->readsome((char*)buffer, BUFFER_SIZE);
                     while(readed--) {
                         chars[buffer[readed]]++;
                     }
@@ -69,8 +69,9 @@ public:
         });
 
         // Close all opened files
-        files.combine_each([this](std::ifstream& file){
-            file.close();
+        files.combine_each([this](std::ifstream* file){
+            file->close();
+            delete file;
         });
     }
 

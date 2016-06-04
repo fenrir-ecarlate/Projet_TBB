@@ -5,16 +5,7 @@
 #include <numeric>
 
 #include <tbb/tbb.h>
-extern "C" {
-#include <pthread.h>
-}
-
 #include <cstring>
-
-#define DEBUG 1
-
-using namespace tbb;
-using namespace std;
 
 class StatsCount {
 public:
@@ -89,12 +80,7 @@ public:
                 std::cout << "'" << (char)i << "' : " << result[i] << std::endl;
             }
         }
-        /*
-        for (size_t i = (size_t)'a'; i <= (size_t)'z'; ++i)             
-            std::cout << (char)i << " : " << result[i] << std::endl;
-        for (size_t i = (size_t)'A'; i <= (size_t)'Z'; ++i)             
-            std::cout << (char)i << " : " << result[i] << std::endl;
-        */
+        
         size_t total = std::accumulate(result.begin(), result.end(), 0);
         std::cout << std::endl << "Total char in file : " << total << std::endl;
     }

@@ -1,3 +1,5 @@
+//src: https://software.intel.com/articles/1-minute-intro-code-samples
+
 #include <cmath>
 #include "tbb/tbb.h"
 

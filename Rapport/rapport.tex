@@ -15,10 +15,10 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{colortbl}
+\usepackage[hyphens]{url}
 \usepackage[hidelinks]{hyperref} % liens
 \usepackage{fancyhdr} % En tetes / bas de page
 \usepackage{helvet} % police helvetica
-\usepackage[hidelinks]{hyperref}
 \usepackage{xcolor} % Style pour affichage du C
 \usepackage{courier} % police pour les listings
 
@@ -63,19 +63,73 @@
 %Ici commence réelement l'écriture du rapport
 
 \section{Introduction}
+L'objectif de ce projet est de comprendre, essayer et exploiter un outil d'optimisation. Dans notre cas, nous avons choisi TBB (Threading Building Blocks). Il s'agit d'une libraire d'Intel fait pour du C++. \\
 
+Sa caractéristique est de simplifier au maximum l'implémentation de programme parallèle pour des systèmes multicœur. Le programmeur pourra ainsi faire un programme portable car c'est la librairie qui va se charger d'utilisé la bonne implémentation de thread (exemple: POSIX pour linux ou les threads Windows). Pour cela, elle met en place différentes fonction et objet lié à la programmation parallèle et à la gestion de concurrence.\\
+
+Pour ce projet, nous avons du faire l'installation de la libraire, la procédure sera expliqué plus loin dans le rapport. Il y aura aussi un code exemple auquel on aura fait des mesures de performances afin de voir les optimisation apporté. Nous finirons par une analyse de notre constats tout au long de nos essaies.
 \newpage
 
 \section{Installation}
+L'installation des libraires a été fait sur des machines possédant un OS Linux Ubuntu. Les installations suivantes ont été via ligne de commande.
+
+\subsection{Installation via apt-get}
+
+Pour installer sur nos machines, nous avons utilisé le gestionnaire de package \texttt{apt-get}. Le package installé est \texttt{libtbb2}. Cela nous donc la commande suivante:\\
+
+\texttt{sudo apt-get install libtbb2}\\
+
+Une fois installer, on peut commencé à programmer avec les librairies pthreads. Pour testé l'installation, on va compiler et exécuter un code exemple afin de voir s'il n'y a pas de problème.(commande pour la compilation \texttt{g++ <filename>.cpp -ltbb} )
+
+\subsubsection{Code exemple}
+\lstinputlisting{../test/test.cpp}
+
+\newpage
+
+\subsection{Installation via l'archive}
+
+\begin{enumerate}
+
+	\item Il faut premièrement télécharger. Pour cela, il faut se rendre sur le site d'Intel pour TBB et aller dans la section download\footnote{\url{https://www.threadingbuildingblocks.org/download}}. Ensuite, on copie l'adresse sur la release et l'OS que l'on veut (dans notre cas Linux). On entre ensuite la commande suivante:\\
+	\texttt{\$ wget https://www.threadingbuildingblocks.org/sites/default/files/\linebreak software\_releases/linux/tbb<version>.tgz}
+	
+	\item Maintenant que l'on a télécharger l'archive, il faut l'extraire pour cela on fait la commande suivante:\\
+	\texttt{\$ tar zxf tbb<version>.tgz}
+	\item Un fois extrait, il faut se rendre dans le dossier \texttt{bin} et modifier le script \texttt{tbbvars.sh}. Il faut changer la ligne suivante:\\
+	\texttt{TBBROOT = SUBSTITUTE\_INSTALL\_DIR\_HERE} \\
+	par\\
+	\texttt{TBBROOT = <path\_tbb\_directory>}\\
+	Cela permettra lors de pouvoir utilisé la librairie facilement lors de la compilation.
+	\item Après, on exécute le script avec la bonne option (ia32 pour une architecture 32 bits ou intel64 pour du 64 bits) et on peut commencé à fait des programme avec TBB.
+	\item Pour tester si tout a été bien installer, on compile le code précédent et on l'exécute.
+	Si il n'y a pas eu de problème durant la compilation et l'exécution c'est que tout est bon
+\end{enumerate}
+
+\begin{figure}[hpl]
+	\includegraphics[width=\textwidth]{images/installcommands.png}
+	\caption{Capture d'écran des commandes utilisées}
+\end{figure}
 
 \newpage
 
 \section{Exemple}
+Le programme utilisé pour l'exemple s'occupe de convertir une image couleur en une avec des nuances de gris. Nous avons choisi le code suivant car il se prête bien à la parallélisation et que nous avons déjà fait des optimisation avec d'autre outils. Cela nous permet ainsi de faire des meilleurs critiques au niveau des performances.
 
+\subsection{Code}
+% inserer le code ici
+
+\subsection{Mesures}
+ 
 \newpage
 
 \section{Analyse}
 
 \newpage
+
+\section{Bibliographie}
+\begin{itemize}
+	\item Tutoriel d'Intel: \url{https://www.threadingbuildingblocks.org/intel-tbb-tutorial}
+	\item Documentation d'Intel: \url{https://software.intel.com/en-us/tbb-documentation}
+\end{itemize}
 
 \end{document}

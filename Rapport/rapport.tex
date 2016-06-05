@@ -75,9 +75,9 @@ L'installation des libraires a été fait sur des machines possédant un OS Linu
 
 \subsection{Installation via gestionnaire de package}
 
-Pour installer sur nos machines, nous avons utilisé le gestionnaire de package \texttt{apt-get}. Le package installé est \texttt{libtbb2}. Nous avons donc la commande suivante pour installer:\\
+Pour installer sur nos machines, nous avons utilisé le gestionnaire de package \texttt{apt-get}. Le package installé est \texttt{libtbb-dev et libtbb2}. Nous avons donc la commande suivante pour installer:\\
 
-\texttt{sudo apt-get install libtbb2}\\
+\texttt{sudo apt-get install libtbb-dev libtbb2}\\
 
 Une fois installé, on peut commencer à programmer avec les librairies pthreads. Pour tester l'installation, on va compiler et exécuter un code exemple afin de voir s'il n'y a pas de problème.(commande pour la compilation \texttt{g++ <filename>.cpp -ltbb} )
 
@@ -164,6 +164,8 @@ La même chose est fait pour la répartition du fichier. On applique un \texttt{
 \newpage
 
 \subsection{Équivalent C}
+
+Compilé avec la commande suivante: \texttt{ gcc -std=c11 -O3 statscount.c -o statscountposix -lpthread}
 
 \lstinputlisting{../examples/stats_count/statscount.c}
 

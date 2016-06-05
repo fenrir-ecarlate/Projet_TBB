@@ -15,6 +15,9 @@ public:
     void run() {
         // Thread Local storage for characters counts
         tbb::combinable<std::vector<size_t>> nbChars([](){return std::vector<size_t>(256, 0);});
+
+        // thread local storage for ifstream
+        // For some reason gcc 4.8 cant compile if we use referances instated
         tbb::combinable<std::ifstream*> files([this](){
             return new std::ifstream(fileName, std::ios::binary | std::ios::in);
         });

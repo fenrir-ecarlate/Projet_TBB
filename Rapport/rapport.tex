@@ -124,7 +124,7 @@ Commande pour la compilation: \texttt{g++ -O3 -std=c++11 statscount.cpp -o stats
 \subsubsection{Explication}
 La libraire TBB possède beaucoup de fonction permettant le parallélisation. Pour expliquer le fonctionnement, nous allons montrer comment fonctionne une d'elle, le \texttt{paralle\_for}. \\
 
-Cette fonction possède plusieurs entête différents qui varie selon ce qu'on a besoin. Ici, on utilise une qui demande une classe template \texttt{blocked\_range} et une expression lambda. L'expression lambda correspondra à la fonction que devront effectuer chaque thread lancé par le programme. Ici, il s'agit de compter le nombre d’occurrences de chaque caractère dans un fichier.
+Cette fonction possède plusieurs entête différents qui varie selon ce qu'on a besoin. Ici, on utilise une qui demande une classe template \texttt{blocked\_range} et une expression lambda. L'expression lambda correspondra à la fonction que devront effectuer chaque thread lancé par le programme. Ici, il s'agit de compter le nombre d’occurrences de chaque caractère dans un fichier. 
 
 La classe \texttt{blocked\_range} permet la répartition de l'exécution du programme dans tout les cœurs du système. Il faut lui indiquer dans le constructeur la range d'itérations qu'il y a maximum à faire, 0 à n-1. Cela permettra dans les boucles for interne, ou autre calcul nécessitant la connaissance des index, d'utiliser le \texttt{begin} et \texttt{end} afin de pouvoir bien répartir les données. Cela est utile quand certaine partie prenne plus de temps que d'autre. Ainsi, lorsqu'un thread se termine on lance directement dessus le jeux de données suivant.
 Cela abstrait la répartition des données manuel dans chaque thread et l'optimisant sachant que l'on attend sur le thread le plus rapide. Dans notre exemple, on utilise se procédé pour mettre le pointeur de fichier au bonne endroit selon les threads:
@@ -132,14 +132,34 @@ Cela abstrait la répartition des données manuel dans chaque thread et l'optimi
 On l'utilise aussi dans la boucle for qui va lire le fichier:
 \lstinputlisting[firstline=53, lastline=58]{../examples/stats_count/statscount.cpp}
 
+\newpage
+
+Une autre variante de \texttt{parallel\_for} exige comme paramètre un min, un max, un step et une fonction (ou expression lambfa). Celle-ci diffère de l'autre par le paramètre step. Il s'agit au fait du nombre de pas qui sépare chaque itérations de thread. Par exemple, on veut itère de 0 à n-1 mais on veut le faire que sur les nombres pair, donc un sur deux. Il suffit de mettre un step de 2 et on aura la réaction voulu. La répartition des tâches sera la même que le \texttt{parallel\_for} discuté avant mais on aura moins d'itérations et l'index fournit sera calculer selon ce paramètre. Exemple:\\
+Série:
+
+\begin{lstlisting}
+for(int i=0; i < N-1; i+=2){
+	tabPair[i/2] = i;
+}
+\end{lstlisting}
+
+Parallèle TBB:
+
+\begin{lstlisting}
+parallel_for(0, N-1, 2, [tabPair](const int& i) {
+	tabPair[i/2] = i;
+});
+\end{lstlisting}
+
+
 Ensuite, pour récolter le nombre d'occurrences dans chaque de caractères que possède chaque thread, on passe par une classe template combine. Cette classe demande une expression lambda au constructeur:
 \lstinputlisting[firstline=17, lastline=17]{../examples/stats_count/statscount.cpp}
 Cela va générer un objet du type voulu lors du lancement du thread. On pourra le récupérer à chaque fois que l'on appelle la méthode \texttt{local} de la classe, on renvoi un vecteur d'une certaine taille dans notre cas:
-\lstinputlisting[firstline=48, lastline=48]{../examples/stats_count/statscount.cpp}
+\lstinputlisting[firstline=51, lastline=51]{../examples/stats_count/statscount.cpp}
 Il va s'agir ici de Thread Local Storage. Cela veut dire que tout les threads possède le même objet qui se trouve à la même plage d'adresse mais qui est indépendant pour chaque thread et donc que son contenu est différent. Dans notre cas, on aimerait qu'à la fin, on est un seul tableau et non plusieurs contenant le nombre total d’occurrences pour chaque caractère. Pour cela, une fois l'exécution du \texttt{parallel\_for} terminé, on appelle la méthode \texttt{combine\_each} et on lui passe  une expression lambda récupérant le nombre d'occurrences rencontré pour chaque thread dans un seul tableau:
-\lstinputlisting[firstline=64, lastline=69]{../examples/stats_count/statscount.cpp}
+\lstinputlisting[firstline=67, lastline=72]{../examples/stats_count/statscount.cpp}
 La même chose est fait pour la répartition du fichier. On applique un \texttt{close} en fin d'exécution:
-\lstinputlisting[firstline=72, lastline=75]{../examples/stats_count/statscount.cpp}
+\lstinputlisting[firstline=74, lastline=78]{../examples/stats_count/statscount.cpp}
 
 \newpage
 
@@ -173,6 +193,7 @@ Au final, on voit que la librairie TBB fait bien sont travaille. Elle repartit l
 \begin{itemize}
 	\item Tutoriel d'Intel: \url{https://www.threadingbuildingblocks.org/intel-tbb-tutorial}
 	\item Documentation d'Intel: \url{https://software.intel.com/en-us/tbb-documentation}
+	\item Présentation d'Intel: \url{http://www.cs.cmu.edu/afs/cs/academic/class/15499-s09/www/handouts/TBB-HPCC07.pdf}
 \end{itemize}
 
 \end{document}

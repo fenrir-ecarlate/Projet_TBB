@@ -65,21 +65,21 @@
 \section{Introduction}
 L'objectif de ce projet est de comprendre, essayer et exploiter un outil d'optimisation. Dans notre cas, nous avons choisi TBB (Threading Building Blocks). Il s'agit d'une libraire d'Intel fait pour du C++. \\
 
-Sa caractéristique est de simplifier au maximum l'implémentation de programme parallèle pour des systèmes multicœur. Le programmeur pourra ainsi faire un programme portable car c'est la librairie qui va se charger d'utilisé la bonne implémentation de thread (exemple: POSIX pour linux ou les threads Windows). Pour cela, elle met en place différentes fonction et objet lié à la programmation parallèle et à la gestion de concurrence.\\
+Sa caractéristique est de simplifier au maximum l'implémentation de programme parallèle pour des systèmes multicœur. Le développeur pourra ainsi faire un programme portable car c'est la librairie qui va se charger d'utiliser la bonne implémentation de thread (exemple: POSIX pour linux ou les threads Windows). Pour cela, elle met en place différentes fonctions et classes lié à la programmation parallèle et à la gestion de concurrence.\\
 
-Pour ce projet, nous avons du faire l'installation de la libraire, la procédure sera expliqué plus loin dans le rapport. Il y aura aussi un code exemple auquel on aura fait des mesures de performances afin de voir les optimisation apporté. Nous finirons par une analyse de notre constats tout au long de nos essaies.
+Pour ce projet, nous avons du faire l'installation de la libraire, la procédure sera expliqué plus loin dans le document. Il y aura aussi un code exemple auquel on aura fait des mesures de performances afin de voir les optimisation apporté. Nous finirons par une analyse de notre constats tout au long de nos essaies.
 \newpage
 
 \section{Installation}
-L'installation des libraires a été fait sur des machines possédant un OS Linux Ubuntu. Les installations suivantes ont été via ligne de commande.
+L'installation des libraires a été fait sur des machines possédant un OS Linux Ubuntu. Les installations suivantes ont été fait via ligne de commande.
 
-\subsection{Installation via apt-get}
+\subsection{Installation via gestionnaire de package}
 
-Pour installer sur nos machines, nous avons utilisé le gestionnaire de package \texttt{apt-get}. Le package installé est \texttt{libtbb2}. Cela nous donc la commande suivante:\\
+Pour installer sur nos machines, nous avons utilisé le gestionnaire de package \texttt{apt-get}. Le package installé est \texttt{libtbb2}. Nous avons donc la commande suivante pour installer:\\
 
 \texttt{sudo apt-get install libtbb2}\\
 
-Une fois installer, on peut commencé à programmer avec les librairies pthreads. Pour testé l'installation, on va compiler et exécuter un code exemple afin de voir s'il n'y a pas de problème.(commande pour la compilation \texttt{g++ <filename>.cpp -ltbb} )
+Une fois installé, on peut commencer à programmer avec les librairies pthreads. Pour tester l'installation, on va compiler et exécuter un code exemple afin de voir s'il n'y a pas de problème.(commande pour la compilation \texttt{g++ <filename>.cpp -ltbb} )
 
 \subsubsection{Code exemple}
 \lstinputlisting{../test/test.cpp}
@@ -99,9 +99,9 @@ Une fois installer, on peut commencé à programmer avec les librairies pthreads
 	\texttt{TBBROOT = SUBSTITUTE\_INSTALL\_DIR\_HERE} \\
 	par\\
 	\texttt{TBBROOT = <path\_tbb\_directory>}\\
-	Cela permettra lors de pouvoir utilisé la librairie facilement lors de la compilation.
-	\item Après, on exécute le script avec la bonne option (ia32 pour une architecture 32 bits ou intel64 pour du 64 bits) et on peut commencé à fait des programme avec TBB.
-	\item Pour tester si tout a été bien installer, on compile le code précédent et on l'exécute.
+	Cela permettra alors de pouvoir utiliser la librairie facilement lors de la compilation.
+	\item Après, on exécute le script avec la bonne option (ia32 pour une architecture 32 bits ou intel64 pour du 64 bits) et on peut commencer à faire des programmes avec TBB.
+	\item Pour tester si tout a été bien installé, on compile le code précédent et on l'exécute.
 	Si il n'y a pas eu de problème durant la compilation et l'exécution c'est que tout est bon
 \end{enumerate}
 
@@ -113,18 +113,67 @@ Une fois installer, on peut commencé à programmer avec les librairies pthreads
 \newpage
 
 \section{Exemple}
-Le programme utilisé pour l'exemple s'occupe de convertir une image couleur en une avec des nuances de gris. Nous avons choisi le code suivant car il se prête bien à la parallélisation et que nous avons déjà fait des optimisation avec d'autre outils. Cela nous permet ainsi de faire des meilleurs critiques au niveau des performances.
+Le programme utilisé pour l'exemple s'occupe de compter le nombre d’occurrence des caractères de la table ASCII.Nous avons choisi le code suivant car il se prête bien à la parallélisation et que nous avons déjà fait une implémentation parallèle avec les thread POSIX directement et en C. Cela nous permet ainsi de faire des meilleurs critiques au niveau des performances.\\
+
+Commande pour la compilation: \texttt{g++ -O3 -std=c++11 statscount.cpp -o statscount -ltbb}
 
 \subsection{Code}
 % inserer le code ici
+\lstinputlisting{../examples/stats_count/statscount.cpp}
+
+\subsubsection{Explication}
+La libraire TBB possède beaucoup de fonction permettant le parallélisation. Pour expliquer le fonctionnement, nous allons montrer comment fonctionne une d'elle, le \texttt{paralle\_for}. \\
+
+Cette fonction possède plusieurs entête différents qui varie selon ce qu'on a besoin. Ici, on utilise une qui demande une classe template \texttt{blocked\_range} et une expression lambda. L'expression lambda correspondra à la fonction que devront effectuer chaque thread lancé par le programme. Ici, il s'agit de compter le nombre d’occurrences de chaque caractère dans un fichier.
+
+La classe \texttt{blocked\_range} permet la répartition de l'exécution du programme dans tout les cœurs du système. Il faut lui indiquer dans le constructeur la range d'itérations qu'il y a maximum à faire, 0 à n-1. Cela permettra dans les boucles for interne, ou autre calcul nécessitant la connaissance des index, d'utiliser le \texttt{begin} et \texttt{end} afin de pouvoir bien répartir les données. Par exemple, si on a 16 itérations à faire mais qu'on est dans un système 4 coeurs, on aura la répartition suivantes dans chaque:
+\begin{enumerate}
+	\item 0 à 3
+	\item 4 à 7
+	\item 8 à 11
+	\item 12 à 15
+\end{enumerate}
+Cela abstrait la répartition des données manuel dans chaque thread, la libraire le faisant pour nous. Dans notre exemple, on utilise se procédé pour mettre le pointeur de fichier au bonne endroit selon les threads:
+\lstinputlisting[firstline=44, lastline=45]{../examples/stats_count/statscount.cpp}
+On l'utilise aussi dans la boucle for qui va lire le fichier:
+\lstinputlisting[firstline=53, lastline=58]{../examples/stats_count/statscount.cpp}
+
+Ensuite, pour récolter le nombre d'occurrences dans chaque de caractères que possède chaque thread, on passe par une classe template combine. Cette classe demande une expression lambda au constructeur:
+\lstinputlisting[firstline=17, lastline=17]{../examples/stats_count/statscount.cpp}
+Cette expression sera utilisé à chaque fois que l'on appelle la méthode \texttt{local} de la classe, on renvoi un vecteur d'une certaine taille dans notre cas:
+\lstinputlisting[firstline=48, lastline=48]{../examples/stats_count/statscount.cpp}
+Il va s'agir ici de Thread Local Storage. Cela veut dire que tout les threads possède le même objet qui se trouve à la même plage d'adresse mais qui est indépendant pour chaque thread et donc que son contenu est différent. Dans notre cas, on aimerait qu'à la fin, on est un seul tableau et non plusieurs contenant le nombre total d’occurrences pour chaque caractère. Pour cela, une fois l'exécution du \texttt{parallel\_for} terminé, on appelle la méthode \texttt{combine\_each} et on lui passe  une expression lambda récupérant le nombre d'occurrences rencontré pour chaque thread dans un seul tableau:
+\lstinputlisting[firstline=64, lastline=69]{../examples/stats_count/statscount.cpp}
+La même chose est fait pour la répartition du fichier. On applique un \texttt{close} en fin d'exécution:
+\lstinputlisting[firstline=72, lastline=75]{../examples/stats_count/statscount.cpp}
+
+\newpage
+
+\subsection{Équivalent C}
+
+\lstinputlisting{../examples/stats_count/statscount.c}
+
+\subsection{Remarque}
+On voit que la version C++ TBB est plus élégante que la version C POSIX. Dans la version C, il faut préparer tout les threads leur définir la taille de données, où sa commence et où il faut s'arrêter. De plus, c'est nous qui devons choisir nous même le nombre de thread. Alors que TBB, lui, choisi tout seul le nombre de thread optimum à lancé.
 
 \subsection{Mesures}
- 
+Les mesures ont été effectué sur un fichier d'environ 250 MB. On a utilisé l'utilitaire \texttt{perf} afin de relever des données intéressante sur les performances de notre implémentation TBB.
+
+Commande utilisé: \texttt{perf stat -e task-clock,cycles,instructions,cache-references,cache-misses <exec> <filepath> }
+
+\subsubsection{TBB}
+\includegraphics[scale=0.5]{images/perf_tbb}
+
+
+\subsubsection{POSIX}
+\includegraphics[scale=0.5]{images/perf_posix}
 \newpage
 
 \section{Analyse}
+On peut qu'entre la version TBB et POSIX, la différence est moindre. On a juste quelque problème au niveau de la cache avec TBB mais on arrive pas comme ça à identifier d'où vient le problème. Par contre, on voit bien que les CPUs sont bien utilisé dans les deux cas. On a plus que 3 CPU utilisé durant l’exécution du programme. On peut donc dire que TBB fait bien sont travaille et parallélise notre implémentation.
 
-\newpage
+\section{Conclusion}
+Au final, on voit que la librairie TBB fait bien sont travaille. Elle repartit la tâche dans plusieurs threads et dans tout les coeurs sans même avoir à demander combien de thread on veut lancer. Il exploite ainsi tout le potentiel de processeur sans que le développeur est à se soucier combien de thread il doit lancer. On a donc une bonne abstraction de la part de la librairie avec des performances satisfaisante qui permet au développeur de faire du code simple, compréhensible et générique, sachant que la libraire s'adapte tout seul à l'implémentation des threads selon l'OS ou l'architecture utilisé.
 
 \section{Bibliographie}
 \begin{itemize}

@@ -1,0 +1,20 @@
+\frametitle{Thread local Storage}
+\lstset{style=customcpp}
+\lstset{language=C++}
+\begin{lstlisting}
+    template <typename T>
+    class combinable {
+    public:
+        combinable();
+        template <typename FInit>
+        combinable(FInit finit);
+        ...
+        void clear();
+
+        T& local();
+        T& local(bool & exists);
+
+        template<typename FCombine> T combine(FCombine fcombine);
+        template<typename Func> void combine_each(Func f);
+    };
+\end{lstlisting}

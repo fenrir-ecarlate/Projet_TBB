@@ -1,0 +1,209 @@
+\documentclass[11pt]{beamer}
+\usetheme{Warsaw}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{setspace}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{xargs}
+\usepackage{xifthen}
+
+\colorlet{keyword}{blue!100!black!80}
+\colorlet{comment}{green!90!black!90}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+	\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstdefinestyle{customcpp}{
+   belowcaptionskip=1\baselineskip,
+   breaklines=true,
+   frame=L,
+   xleftmargin=\parindent,
+   language=C++,
+   showstringspaces=false,
+   basicstyle=\footnotesize\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\itshape\color{green},
+   stringstyle=\color{purple},
+   identifierstyle=\color{gray},
+   tabsize=4,
+   numbers=left,
+   numbersep=8pt,
+   stepnumber=1,
+   numberstyle=\tiny\color{gray},
+}
+
+\author{João Miguel Domingues Pedrosa}
+\title{Threading Building Block (TBB)}
+%\setbeamercovered{transparent} 
+%\setbeamertemplate{navigation symbols}{} 
+\logo{Page} 
+%\institute{} 
+%\date{} e fichier
+%\subject{} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\begin{frame}
+%\tableofcontents
+%\end{frame}
+
+\begin{frame}{Introduction}
+\textbf{TBB}, \textbf{T}hreading \textbf{B}uilding \textbf{B}lock
+\begin{itemize}
+	\item Librairie C++ Intel open source
+	\item Programmation parallèle
+	\item Allocateur de mémoire optimisé
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Installation}
+	Ubuntu ou Debian
+	Via gestionnaire de package aptitude
+	\begin{itemize}
+		\item sudo apt-get install libtbb-dev libtbb2
+	\end{itemize}
+	
+	Via archive
+	\begin{itemize}
+		\item Récupérer archive sur le site
+		\item Extraire l'archive
+		\item Exécuter script tbbvar.sh dans le répertoire bin 
+		\item Installation terminer
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Compilation}
+	Compilation, ajout de l'option -ltbb afin de linker la librairie:\\	\texttt{g++ file.cpp -o bin -ltbb}
+\end{frame}
+
+\begin{frame}{Algorithme}
+	Algorithme:
+	\begin{itemize}
+	 	\item \texttt{parallel\_do}
+	 	\item \texttt{parallel\_for}
+	 	\item \texttt{parallel\_for\_each}
+	 	\item \texttt{parallel\_reduce}
+	 	\item \texttt{parallel\_sort}
+	 	\item \texttt{parallel\_invoke}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Parallel for}
+
+\begin{footnotesize}
+	\lstset{style=customcpp}
+	\lstset{language=C++}
+	\begin{lstlisting}	
+template<typename Index, typename Func>
+Func parallel_for( Index first, Index_type last, const Func& f [, partitioner[, task_group_context& group]] );
+
+template<typename Index, typename Func>
+Func parallel_for( Index first, Index_type last, Index step, const Func& f [, partitioner[, task_group_context& group]] );
+
+template<typename Range, typename Body> 
+void parallel_for( const Range& range, const Body& body, [, partitioner[, task_group_context& group]] );
+	\end{lstlisting}
+
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{Parallel invoke}
+\begin{footnotesize}
+	\lstset{style=customcpp}
+	\lstset{language=C++}
+	\begin{lstlisting}	
+template<typename Func0, typename Func1>
+void parallel_invoke(const Func0& f0,const Func1& f1);
+
+template<typename Func0, typename Func1, typename Func2>
+void parallel_invoke(const Func0& f0, const Func1& f1, const Func2& f2);
+
+template<typename Func0, typename Func1, ..., typename Func9>
+void parallel_invoke(const Func0& f0, const Func1& f1, ..., const Func9& f9);
+	\end{lstlisting}
+
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]{Blocked range}
+	\begin{footnotesize}
+	\lstset{style=customcpp}
+	\lstset{language=C++}
+	\begin{lstlisting}	
+    template<typename Value>
+    class blocked_range {
+    public:
+        // constructors
+        blocked_range( Value begin, Value end,
+                       size_type grainsize=1 );
+        ...
+        // capacity
+        size_type size() const;
+        bool empty() const;
+        ...
+        
+        // iterators
+        const_iterator begin() const;
+        const_iterator end() const;
+    };
+
+	\end{lstlisting}
+
+\end{footnotesize}
+\end{frame}
+
+\begin{frame}{Container}
+	\begin{itemize}
+		\item Standard container
+		\begin{itemize}
+			\item vector
+			\item hash\_map
+			\item queue
+			\item ...
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Thread local Storage}
+\lstset{style=customcpp}
+\lstset{language=C++}
+\begin{lstlisting}
+    template <typename T>
+    class combinable {
+    public:
+        combinable();
+        template <typename FInit>
+        combinable(FInit finit);     
+        ...
+        void clear();
+ 
+        T& local();
+        T& local(bool & exists);
+ 
+        template<typename FCombine> T combine(FCombine fcombine);
+        template<typename Func> void combine_each(Func f);
+    };
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Démo}
+
+\end{frame}
+
+\begin{frame}{Conclusion}
+
+\end{frame}
+
+\begin{frame}{Question}
+
+\end{frame}
+
+\end{document}

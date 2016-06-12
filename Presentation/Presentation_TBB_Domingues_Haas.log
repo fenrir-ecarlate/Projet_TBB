@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.2.14)  8 JUN 2016 15:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.2.14)  12 JUN 2016 20:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1246,13 +1246,26 @@ File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
 
 (./Presentation_TBB_Domingues_Haas.vrb) [10
 
-] [11
+]
+<bluedemobutton.jpg, id=303, 903.375pt x 903.375pt>
+File: bluedemobutton.jpg Graphic file (type jpg)
+ <use bluedemobutton.jpg>
+Package pdftex.def Info: bluedemobutton.jpg used on input line 204.
+(pdftex.def)             Requested size: 153.64493pt x 153.64064pt.
 
-] [12
+[11
 
-] [13
+ <./bluedemobutton.jpg>] [12
 
 ]
+<question.jpg, id=356, 427.3566pt x 569.7285pt>
+File: question.jpg Graphic file (type jpg)
+ <use question.jpg>
+Package pdftex.def Info: question.jpg used on input line 214.
+(pdftex.def)             Requested size: 153.64493pt x 204.83261pt.
+ [13
+
+ <./question.jpg>]
 \tf@nav=\write6
 \openout6 = `Presentation_TBB_Domingues_Haas.nav'.
 
@@ -1262,12 +1275,11 @@ File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
 \tf@snm=\write8
 \openout8 = `Presentation_TBB_Domingues_Haas.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 209.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 209.
-
-(./Presentation_TBB_Domingues_Haas.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 209.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 209.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 216.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 216.
+ (./Presentation_TBB_Domingues_Haas.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 216.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 216.
 Package rerunfilecheck Info: File `Presentation_TBB_Domingues_Haas.out' has not
  changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1276,13 +1288,13 @@ Package rerunfilecheck Info: File `Presentation_TBB_Domingues_Haas.out' has not
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 209.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 216.
  ) 
 Here is how much of TeX's memory you used:
- 19293 strings out of 493105
- 355538 string characters out of 6137072
- 563460 words of memory out of 5000000
- 22269 multiletter control sequences out of 15000+600000
+ 19331 strings out of 493105
+ 356355 string characters out of 6137072
+ 563930 words of memory out of 5000000
+ 22303 multiletter control sequences out of 15000+600000
  6860 words of font info for 26 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,16n,128p,428b,1477s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1293,11 +1305,11 @@ live/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Presentation_TBB_Domingues_Haas.pdf (13 pages, 101654 bytes).
+Output written on Presentation_TBB_Domingues_Haas.pdf (13 pages, 415524 bytes).
 
 PDF statistics:
- 410 PDF objects out of 1000 (max. 8388607)
- 370 compressed objects within 4 object streams
+ 414 PDF objects out of 1000 (max. 8388607)
+ 371 compressed objects within 4 object streams
  27 named destinations out of 1000 (max. 500000)
- 85 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
